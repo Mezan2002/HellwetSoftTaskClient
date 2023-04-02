@@ -11,7 +11,7 @@ const LoginAndRegisterLayout = () => {
               Join here and make your task noted
             </h1>
             <p className="py-3 w-8/12 md:w-full mx-auto">
-              Provide your name and your working sector and follow us
+              Be the user of our app and keep your task noted here
             </p>
             <img
               draggable={false}

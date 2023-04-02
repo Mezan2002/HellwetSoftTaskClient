@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const LogIn = () => {
+  const { googleLogIn } = useContext(AuthContext);
   const handleLogIn = (event) => {
     const form = event.target;
     const email = form.email.value;
@@ -9,6 +12,17 @@ const LogIn = () => {
     console.log(email, password);
     event.preventDefault();
   };
+
+  const handleGoogleLogin = () => {
+    googleLogIn()
+      .then((result) => {
+        const user = result.user;
+        Swal.fire("Logged In Successfully!", "", "success");
+        console.log(user);
+      })
+      .catch((e) => console.log(e.message));
+  };
+
   return (
     <div>
       <div className="card neomorphic mx-auto shadow-xl">
@@ -53,6 +67,7 @@ const LogIn = () => {
           <div>
             <button
               type="submit"
+              onClick={handleGoogleLogin}
               className="btn btn-primary btn-outline btn-block"
             >
               Login with Google
