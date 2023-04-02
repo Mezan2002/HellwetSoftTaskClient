@@ -68,7 +68,7 @@ const LogIn = () => {
             <button
               type="submit"
               onClick={handleGoogleLogin}
-              className="btn btn-primary btn-outline btn-block"
+              className="btn btn-outline btn-block"
             >
               Login with Google
             </button>
