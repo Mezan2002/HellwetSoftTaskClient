@@ -50,8 +50,8 @@ const LogIn = () => {
           </div>
           <p className="text-center mt-3">
             don't have a account{" "}
-            <Link to="/" className="text-primary">
-              register
+            <Link to="/signUp" className="text-primary">
+              register now
             </Link>{" "}
           </p>
         </div>
