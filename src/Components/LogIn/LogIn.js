@@ -2,11 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const LogIn = () => {
+  const handleLogIn = (event) => {
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    event.preventDefault();
+  };
   return (
     <div>
       <div className="card neomorphic mx-auto shadow-xl">
         <div className="card-body">
-          <form className="">
+          <form onSubmit={handleLogIn} className="">
             <h2 className="card-title">
               <p className="text-center mb-10 text-xl uppercase">Log In</p>
             </h2>
@@ -44,7 +51,10 @@ const LogIn = () => {
           </form>
           <div className="divider w-10/12 mx-auto">Or</div>
           <div>
-            <button className="btn btn-primary btn-outline btn-block">
+            <button
+              type="submit"
+              className="btn btn-primary btn-outline btn-block"
+            >
               Login with Google
             </button>
           </div>
