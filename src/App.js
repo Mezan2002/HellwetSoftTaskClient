@@ -1,13 +1,18 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import LogIn from "./Components/LogIn/LogIn";
+import LoginAndRegisterLayout from "./Layout/LoginAndRegisterLayout/LoginAndRegisterLayout";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LogIn></LogIn>,
+      element: <LoginAndRegisterLayout></LoginAndRegisterLayout>,
+      children: [
+        {
+          path: "/",
+          element: "",
+        },
+      ],
     },
   ]);
   return (
