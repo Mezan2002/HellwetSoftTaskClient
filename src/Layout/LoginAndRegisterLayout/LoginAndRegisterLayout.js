@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const LoginAndRegisterLayout = () => {
   return (
-    <div className="p-5 flex items-center justify-center min-h-screen">
+    <div className="p-5 flex items-center justify-center min-h-screen main">
       <div className="grid grid-cols-2 gap-2 items-center">
         <div className="mr-10">
           <div className="md:relative md:text-left text-center">
