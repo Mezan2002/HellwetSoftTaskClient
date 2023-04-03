@@ -9,7 +9,7 @@ img,
 ::placeholder {
   user-select: none;
 }
-.main {
+.mainBG {
   background-color: #e8f0fd;
 }
 .neomorphic {
