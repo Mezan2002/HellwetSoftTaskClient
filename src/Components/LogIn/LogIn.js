@@ -4,13 +4,18 @@ import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const LogIn = () => {
-  const { googleLogIn } = useContext(AuthContext);
+  const { googleLogIn, userLogIn } = useContext(AuthContext);
   const handleLogIn = (event) => {
+    event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    event.preventDefault();
+    userLogIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((e) => console.log(e.message));
   };
 
   const handleGoogleLogin = () => {
