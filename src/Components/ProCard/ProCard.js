@@ -8,7 +8,7 @@ const ProCard = () => {
           <p className="text-white">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit
           </p>
-          <button className="btn btn-ghost btn-block rounded-full bg-white text-primary">
+          <button className="btn-block rounded-full bg-white text-primary uppercase py-4 font-semibold">
             Get Pro Now
           </button>
         </div>
