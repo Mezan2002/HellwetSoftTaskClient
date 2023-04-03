@@ -13,6 +13,7 @@ const LogIn = () => {
     userLogIn(email, password)
       .then((result) => {
         const user = result.user;
+        Swal.fire("Logged In Successfully!", "", "success");
         console.log(user);
       })
       .catch((e) => console.log(e.message));

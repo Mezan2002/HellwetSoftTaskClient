@@ -17,6 +17,7 @@ const SignUp = () => {
     signUpUser(email, password)
       .then((result) => {
         const user = result.user;
+        Swal.fire("Signing Up Successfully!", "", "success");
         console.log(user);
       })
       .catch((e) => console.log(e.message));
