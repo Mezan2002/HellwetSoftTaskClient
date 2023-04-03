@@ -1,9 +1,10 @@
 import React from "react";
 import ProCard from "../ProCard/ProCard";
+import { IoIosArrowDown } from "react-icons/io";
 
 const DashboardMenu = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
       <div>
         <p className="pt-4 pb-2 font-semibold text-4xl text-center px-2">
           Dashboard <span className="text-xs">Demo</span>
@@ -11,7 +12,7 @@ const DashboardMenu = () => {
       </div>
       <div className="px-2">
         <ul className="menu bg-base-100 p-2 rounded-box">
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +31,7 @@ const DashboardMenu = () => {
               Item 2
             </a>
           </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +50,7 @@ const DashboardMenu = () => {
               Item 1
             </a>
           </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +69,7 @@ const DashboardMenu = () => {
               Item 3
             </a>
           </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +88,7 @@ const DashboardMenu = () => {
               Item 3
             </a>
           </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +107,7 @@ const DashboardMenu = () => {
               Item 3
             </a>
           </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +126,7 @@ const DashboardMenu = () => {
               Item 3
             </a>
           </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +145,7 @@ const DashboardMenu = () => {
               Item 3
             </a>
           </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +164,7 @@ const DashboardMenu = () => {
               Item 3
             </a>
           </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -182,26 +183,7 @@ const DashboardMenu = () => {
               Item 3
             </a>
           </li>
-          <li className="">
-            <a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                />
-              </svg>
-              Item 3
-            </a>
-          </li>
-          <li className="">
+          <li className="my-1">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -225,7 +207,30 @@ const DashboardMenu = () => {
       <div className="px-4">
         <ProCard></ProCard>
       </div>
-      <div></div>
+      <div className="flex items-center justify-between mainBG absolute bottom-0 w-full py-6 px-3">
+        <div className="flex items-center">
+          <div className="avatar  mr-2">
+            <div className="w-12 rounded-full">
+              <img
+                src="https://cdn.britannica.com/51/182851-050-97EA5117/Publicity-image-Iron-Man-War-Machine-2.jpg"
+                alt="loggedInUserImage"
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <h2 className="mr-5 font-bold">Iron Man</h2>
+              <p className="text-gray-400">user</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span>
+            {" "}
+            <IoIosArrowDown></IoIosArrowDown>{" "}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
