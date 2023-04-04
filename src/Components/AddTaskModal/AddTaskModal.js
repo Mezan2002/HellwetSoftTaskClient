@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 
 const Modal = ({ setModalOpen }) => {
+  const { user } = useContext(AuthContext);
   const handleAddTask = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -12,6 +14,7 @@ const Modal = ({ setModalOpen }) => {
       title,
       description,
       date,
+      userEmail: user.email,
     };
     fetch("http://localhost:5000/addTask", {
       method: "POST",
