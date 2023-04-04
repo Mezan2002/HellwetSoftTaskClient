@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
   const { googleLogIn, signUpUser } = useContext(AuthContext);
 
+  const navigate = useNavigate();
   const handleSignUp = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -16,9 +17,8 @@ const SignUp = () => {
     console.log(fullName, email, password, imageURL);
     signUpUser(email, password)
       .then((result) => {
-        const user = result.user;
         Swal.fire("Signing Up Successfully!", "", "success");
-        console.log(user);
+        navigate("/taskPage");
       })
       .catch((e) => console.log(e.message));
   };
@@ -26,9 +26,8 @@ const SignUp = () => {
   const handleGoogleLogin = () => {
     googleLogIn()
       .then((result) => {
-        const user = result.user;
         Swal.fire("Logged In Successfully!", "", "success");
-        console.log(user);
+        navigate("/taskPage");
       })
       .catch((e) => console.log(e.message));
   };

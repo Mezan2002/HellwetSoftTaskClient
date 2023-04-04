@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const LogIn = () => {
   const { googleLogIn, userLogIn } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleLogIn = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -12,9 +13,8 @@ const LogIn = () => {
     const password = form.password.value;
     userLogIn(email, password)
       .then((result) => {
-        const user = result.user;
         Swal.fire("Logged In Successfully!", "", "success");
-        console.log(user);
+        navigate("/taskPage");
       })
       .catch((e) => console.log(e.message));
   };
@@ -22,9 +22,8 @@ const LogIn = () => {
   const handleGoogleLogin = () => {
     googleLogIn()
       .then((result) => {
-        const user = result.user;
         Swal.fire("Logged In Successfully!", "", "success");
-        console.log(user);
+        navigate("/taskPage");
       })
       .catch((e) => console.log(e.message));
   };
