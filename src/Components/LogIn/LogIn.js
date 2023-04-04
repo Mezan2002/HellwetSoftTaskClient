@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const LogIn = () => {
   const { googleLogIn, userLogIn } = useContext(AuthContext);
+  const [logInError, setLogInError] = useState("");
   const navigate = useNavigate();
   const handleLogIn = (event) => {
     event.preventDefault();
@@ -16,7 +17,7 @@ const LogIn = () => {
         Swal.fire("Logged In Successfully!", "", "success");
         navigate("/taskPage");
       })
-      .catch((e) => console.log(e.message));
+      .catch((e) => setLogInError(e.message));
   };
 
   const handleGoogleLogin = () => {
@@ -25,7 +26,7 @@ const LogIn = () => {
         Swal.fire("Logged In Successfully!", "", "success");
         navigate("/taskPage");
       })
-      .catch((e) => console.log(e.message));
+      .catch((e) => setLogInError(e.message));
   };
 
   return (
@@ -36,6 +37,11 @@ const LogIn = () => {
             <h2 className="card-title">
               <p className="text-center mb-10 text-xl uppercase">Log In</p>
             </h2>
+            {logInError && (
+              <div>
+                <p className="text-red-500 text-center">{logInError}</p>
+              </div>
+            )}
             <div className="mb-5">
               <div className="form-control w-full">
                 <label className="label">

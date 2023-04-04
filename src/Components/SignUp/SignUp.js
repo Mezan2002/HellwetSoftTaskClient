@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
   const { googleLogIn, signUpUser, updateUser } = useContext(AuthContext);
+  const [logInError, setLogInError] = useState("");
 
   const navigate = useNavigate();
   const handleSignUp = (event) => {
@@ -20,7 +21,7 @@ const SignUp = () => {
         Swal.fire("Signing Up Successfully!", "", "success");
         navigate("/taskPage");
       })
-      .catch((e) => console.log(e.message));
+      .catch((e) => setLogInError(e.message));
   };
 
   const handleUser = (fullName, imageURL) => {
@@ -32,7 +33,6 @@ const SignUp = () => {
     updateUser(userInfo)
       .then((result) => {
         const user = result.user;
-        console.log(user);
       })
       .catch((error) => console.log(error));
   };
@@ -43,7 +43,7 @@ const SignUp = () => {
         Swal.fire("Logged In Successfully!", "", "success");
         navigate("/taskPage");
       })
-      .catch((e) => console.log(e.message));
+      .catch((e) => setLogInError(e.message));
   };
   return (
     <div>
@@ -53,6 +53,11 @@ const SignUp = () => {
             <h2 className="card-title">
               <p className="text-center mb-10 text-xl uppercase">Sign Up</p>
             </h2>
+            {logInError && (
+              <div>
+                <p className="text-red-500 text-center">{logInError}</p>
+              </div>
+            )}
             <div className="mb-5">
               <div className="form-control w-full">
                 <label className="label">
