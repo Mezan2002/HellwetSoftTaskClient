@@ -4,7 +4,7 @@ import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { googleLogIn, signUpUser } = useContext(AuthContext);
+  const { googleLogIn, signUpUser, updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const handleSignUp = (event) => {
@@ -14,13 +14,27 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
     const imageURL = form.imageURL.value;
-    console.log(fullName, email, password, imageURL);
     signUpUser(email, password)
       .then((result) => {
+        handleUser(fullName, imageURL);
         Swal.fire("Signing Up Successfully!", "", "success");
         navigate("/taskPage");
       })
       .catch((e) => console.log(e.message));
+  };
+
+  const handleUser = (fullName, imageURL) => {
+    const userInfo = {
+      displayName: fullName,
+      photoURL: imageURL,
+    };
+
+    updateUser(userInfo)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleGoogleLogin = () => {

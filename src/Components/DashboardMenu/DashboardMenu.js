@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import ProCard from "../ProCard/ProCard";
 import { IoIosArrowDown } from "react-icons/io";
+import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 
 const DashboardMenu = () => {
+  const { user, logOut } = useContext(AuthContext);
   return (
     <div className="">
       <div className="min-h-screen relative">
@@ -108,29 +110,39 @@ const DashboardMenu = () => {
         <div className="px-4">
           <ProCard></ProCard>
         </div>
-        <div className="flex items-center justify-between mainBG absolute bottom-0 w-full py-6 px-3">
-          <div className="flex items-center">
-            <div className="avatar  mr-2">
-              <div className="w-12 rounded-full">
-                <img
-                  src="https://cdn.britannica.com/51/182851-050-97EA5117/Publicity-image-Iron-Man-War-Machine-2.jpg"
-                  alt="loggedInUserImage"
-                />
+        <div className="dropdown-right dropdown-end absolute bottom-0 w-full dropdown">
+          <label
+            tabIndex={0}
+            className="flex items-center justify-between mainBG absolute bottom-0 w-full py-6 px-3"
+          >
+            <div className="flex items-center">
+              <div className="avatar mr-2">
+                <div className="w-12 rounded-full">
+                  <img src={user.photoURL} alt="loggedInUserImage" />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <h2 className="mr-5 font-bold">{user.displayName}</h2>
+                  <p className="text-gray-400">user</p>
+                </div>
               </div>
             </div>
             <div>
-              <div>
-                <h2 className="mr-5 font-bold">Iron Man</h2>
-                <p className="text-gray-400">user</p>
-              </div>
+              <span>
+                {" "}
+                <IoIosArrowDown></IoIosArrowDown>{" "}
+              </span>
             </div>
-          </div>
-          <div>
-            <span>
-              {" "}
-              <IoIosArrowDown></IoIosArrowDown>{" "}
-            </span>
-          </div>
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <button onClick={logOut} className="btn">
+              Log Out{" "}
+            </button>
+          </ul>
         </div>
       </div>
     </div>
