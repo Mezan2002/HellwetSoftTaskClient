@@ -31,9 +31,7 @@ const SignUp = () => {
     };
 
     updateUser(userInfo)
-      .then((result) => {
-        const user = result.user;
-      })
+      .then((result) => {})
       .catch((error) => console.log(error));
   };
 

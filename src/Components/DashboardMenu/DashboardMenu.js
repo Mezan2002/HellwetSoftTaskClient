@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import ProCard from "../ProCard/ProCard";
 import { IoIosArrowDown } from "react-icons/io";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import { FaUser } from "react-icons/fa";
 
 const DashboardMenu = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -116,14 +117,22 @@ const DashboardMenu = () => {
             className="flex items-center justify-between mainBG absolute bottom-0 w-full py-6 px-3"
           >
             <div className="flex items-center">
-              <div className="avatar mr-2">
-                <div className="w-12 rounded-full">
-                  <img src={user?.photoURL} alt="loggedInUserImage" />
+              {user?.photoURL ? (
+                <div className="avatar mr-2">
+                  <div className="w-12 rounded-full">
+                    <img src={user?.photoURL} alt="loggedInUserImage" />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-400 p-2 mr-4">
+                  <FaUser className="text-3xl"></FaUser>
+                </div>
+              )}
               <div>
                 <div>
-                  <h2 className="mr-5 font-bold">{user?.displayName}</h2>
+                  <h2 className="mr-5 font-bold">
+                    {user?.displayName ? user.displayName : "User"}
+                  </h2>
                   <p className="text-gray-400">user</p>
                 </div>
               </div>
