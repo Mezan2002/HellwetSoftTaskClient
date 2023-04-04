@@ -4,16 +4,35 @@ import { MdNotificationsActive } from "react-icons/md";
 import { RiSettings4Fill } from "react-icons/ri";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
+import { useQuery } from "react-query";
 
 const Tasks = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const {
+    data: task = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const res = await fetch(
+        `http://localhost:5000/tasks?userEmail=${user?.email}`
+      );
+      const data = await res.json();
+      return data;
+    },
+  });
+
   return (
     <div className="mainBG min-h-screen">
       <div className="grid grid-cols-9 p-8">
         <div className="col-span-8 flex items-center justify-between">
-          <p className="font-semibold text-2xl">Hello {user.displayName}👋 ,</p>
+          <p className="font-semibold text-2xl">
+            Hello {user?.displayName}👋 ,
+          </p>
           <div className="form-control w-5/12">
             <div className="input-group">
               <input
@@ -39,14 +58,6 @@ const Tasks = () => {
               </button>
             </div>
           </div>
-          {/* <input
-            type="text"
-            className="py-3 relative pl-4 pr-12 font-medium text-lg rounded-full focus:outline-none w-5/12 mx-auto"
-            placeholder="Search"
-          />
-          <p className="absolute top-1/3 right-1/4">
-            <FaSearch className=""></FaSearch>
-          </p> */}
         </div>
         <div className="flex items-center justify-end">
           <p>
@@ -65,7 +76,9 @@ const Tasks = () => {
           <div className="p-4 flex items-center justify-between">
             <div className="w-8/12">
               <h2 className="card-title">All Tasks</h2>
-              <p className="text-green-500">Incompleted Taks : 3 </p>
+              <p className="text-green-500">
+                Incompleted Taks : {task.length}{" "}
+              </p>
             </div>
             <div className="flex items-center justify-between w-4/12">
               <div className="relative w-8/12">
@@ -87,12 +100,15 @@ const Tasks = () => {
                   Add New Task
                 </label>
                 {modalOpen && (
-                  <AddTaskModal setModalOpen={setModalOpen}></AddTaskModal>
+                  <AddTaskModal
+                    refetch={refetch}
+                    setModalOpen={setModalOpen}
+                  ></AddTaskModal>
                 )}
               </div>
             </div>
           </div>
-          <div className="h-[80%] overflow-auto">
+          <div className="h-[80%] overflow-auto px-5">
             <div className="mt-5">
               <div className="overflow-x-auto">
                 <table className="table rounded-none w-full">
@@ -108,117 +124,21 @@ const Tasks = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* row 1 */}
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>1</th>
-                      <td>Cy Ganderton</td>
-                      <td>Quality Control Specialist</td>
-                      <td>Blue</td>
-                      <td>Completed</td>
-                      <td className="">
-                        <button className="btn btn-sm mr-4">edit</button>
-                        <button className="btn btn-sm">delete</button>
-                      </td>
-                    </tr>
+                    {task?.map((task, i) => (
+                      <tr key={task._id}>
+                        <th>{i + 1}</th>
+                        <td>{task.title}</td>
+                        <td>{task.description}</td>
+                        <td>{task.date}</td>
+                        <td>
+                          <button className="btn btn-ghost btn-xs">new</button>
+                        </td>
+                        <td className="">
+                          <button className="btn btn-sm mr-4">edit</button>
+                          <button className="btn btn-sm">delete</button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

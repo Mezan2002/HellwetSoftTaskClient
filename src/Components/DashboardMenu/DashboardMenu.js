@@ -118,12 +118,12 @@ const DashboardMenu = () => {
             <div className="flex items-center">
               <div className="avatar mr-2">
                 <div className="w-12 rounded-full">
-                  <img src={user.photoURL} alt="loggedInUserImage" />
+                  <img src={user?.photoURL} alt="loggedInUserImage" />
                 </div>
               </div>
               <div>
                 <div>
-                  <h2 className="mr-5 font-bold">{user.displayName}</h2>
+                  <h2 className="mr-5 font-bold">{user?.displayName}</h2>
                   <p className="text-gray-400">user</p>
                 </div>
               </div>

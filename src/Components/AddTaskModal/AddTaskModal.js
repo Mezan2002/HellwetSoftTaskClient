@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 
-const Modal = ({ setModalOpen }) => {
+const Modal = ({ setModalOpen, refetch }) => {
   const { user } = useContext(AuthContext);
   const handleAddTask = (event) => {
     event.preventDefault();
@@ -27,6 +27,7 @@ const Modal = ({ setModalOpen }) => {
       .then((data) => {
         if (data.acknowledged) {
           Swal.fire("Task Added Successfully!", "", "success");
+          refetch();
           setModalOpen(false);
         }
       });
