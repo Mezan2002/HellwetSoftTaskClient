@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaRegChartBar, FaSearch } from "react-icons/fa";
 import { MdNotificationsActive } from "react-icons/md";
 import { RiSettings4Fill } from "react-icons/ri";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
 
 const Tasks = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div className="mainBG min-h-screen">
       <div className="grid grid-cols-9 p-8">
@@ -50,7 +51,16 @@ const Tasks = () => {
                 </p>
               </div>
               <div className="">
-                <AddTaskModal></AddTaskModal>
+                <label
+                  htmlFor="addTaskModal"
+                  onClick={() => setModalOpen(true)}
+                  className="btn btn-primary btn-block"
+                >
+                  Add New Task
+                </label>
+                {modalOpen && (
+                  <AddTaskModal setModalOpen={setModalOpen}></AddTaskModal>
+                )}
               </div>
             </div>
           </div>

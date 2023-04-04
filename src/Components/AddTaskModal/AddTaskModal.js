@@ -1,6 +1,7 @@
 import React from "react";
+import Swal from "sweetalert2";
 
-const Modal = () => {
+const Modal = ({ setModalOpen }) => {
   const handleAddTask = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -12,15 +13,23 @@ const Modal = () => {
       description,
       date,
     };
+    fetch("http://localhost:5000/addTask", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(taskData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          Swal.fire("Task Added Successfully!", "", "success");
+          setModalOpen(false);
+        }
+      });
   };
   return (
     <div>
-      {/* The button to open modal */}
-      <label htmlFor="addTaskModal" className="btn btn-primary btn-block">
-        Add New Task
-      </label>
-
-      {/* Put this part before </body> tag */}
       <input type="checkbox" id="addTaskModal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box relative">
@@ -40,6 +49,7 @@ const Modal = () => {
                 type="text"
                 placeholder="Title"
                 name="title"
+                required
                 className="input input-bordered w-full"
               />
             </div>
@@ -50,6 +60,7 @@ const Modal = () => {
               <input
                 type="text"
                 name="description"
+                required
                 placeholder="Description"
                 className="input input-bordered w-full"
               />
@@ -61,6 +72,7 @@ const Modal = () => {
               <input
                 type="text"
                 name="date"
+                required
                 placeholder="example: 04/04/2023"
                 className="input input-bordered w-full"
               />
