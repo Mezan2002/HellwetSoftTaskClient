@@ -13,12 +13,14 @@ import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import Swal from "sweetalert2";
 import EditTaksModal from "../EditTaksModal/EditTaksModal";
+import TaskDetailsModal from "../TaskDetailsModal/TaskDetailsModal";
 
 const Tasks = () => {
   const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [taskData, setTaskData] = useState([]);
+  const [detailsTaskData, setDetailsTaskData] = useState([]);
 
   const { data: task = [], refetch } = useQuery({
     queryKey: [`tasks, ${user?.email}`],
@@ -155,66 +157,79 @@ const Tasks = () => {
               </div>
             </div>
             {task.length !== 0 ? (
-              <div className="h-[80%] overflow-auto px-5">
-                <div className="mt-5">
-                  <div className="overflow-x-auto">
-                    <table className="table rounded-none w-full">
-                      {/* head */}
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Title and Description</th>
-                          <th>Date</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {task.map((task, i) => (
-                          <tr key={task._id}>
-                            <th>{i + 1}</th>
-                            <td>
-                              <div className="flex items-center space-x-3">
-                                <div>
-                                  <div className="font-bold">{task.title}</div>
-                                  <div className="text-sm opacity-50">
-                                    {task.description.length > 20
-                                      ? `${task.description.slice(0, 30)}...`
-                                      : task.description}
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td>{task.date}</td>
-                            <td>
-                              <button className="btn btn-ghost btn-xs">
-                                new
-                              </button>
-                            </td>
-                            <td className="">
-                              <label
-                                htmlFor="editTaskModal"
-                                className="btn btn-sm mr-4"
-                                onClick={() => handleEdit(task)}
-                              >
-                                <FaPencilAlt></FaPencilAlt>
-                              </label>
-                              <button
-                                onClick={() => handleDelete(task._id)}
-                                className="btn btn-error text-white btn-sm"
-                              >
-                                <FaTrashAlt></FaTrashAlt>
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+              <div className="px-5">
+                <div className="grid grid-cols-12 gap-2 p-5 bg-slate-200 rounded-xl">
+                  <div className="">
+                    <h2 className="text-sm capitalize font-semibold">No</h2>
+                  </div>
+                  <div className="col-span-11 grid grid-cols-4">
+                    <h2 className="text-sm capitalize font-semibold">
+                      Title and Description
+                    </h2>
+                    <h2 className="text-sm capitalize font-semibold">Date</h2>
+                    <h2 className="text-sm capitalize font-semibold">Status</h2>
+                    <h2 className="text-sm capitalize font-semibold">Action</h2>
                   </div>
                 </div>
+                {task.map((task, i) => (
+                  <label
+                    key={task._id}
+                    htmlFor="taskDetailsModal"
+                    onClick={() => setDetailsTaskData(task)}
+                    className=""
+                  >
+                    <div className="grid grid-cols-12 gap-2 p-5 border-b items-center align-middle">
+                      <div className="">
+                        <h2 className="text-sm capitalize font-semibold">
+                          {i + 1}
+                        </h2>
+                      </div>
+                      <div className="col-span-11 grid grid-cols-4">
+                        <div className="">
+                          <h2 className="text-base capitalize font-semibold">
+                            {task.title}
+                          </h2>
+                          <p className="text-sm text-gray-400">
+                            {task.description.length > 20
+                              ? `${task.description.slice(0, 30)}...`
+                              : task.description}
+                          </p>
+                        </div>
+                        <div>
+                          <h2 className="text-base mt-3">{task.date}</h2>
+                        </div>
+                        <div className="">
+                          <button className="btn btn-ghost btn-xs mt-3">
+                            new
+                          </button>
+                        </div>
+                        <div className="mt-2">
+                          <label
+                            htmlFor="editTaskModal"
+                            className="btn btn-sm mr-4"
+                            onClick={() => handleEdit(task)}
+                          >
+                            <FaPencilAlt></FaPencilAlt>
+                          </label>
+                          <button
+                            onClick={() => handleDelete(task._id)}
+                            className="btn btn-error text-white btn-sm"
+                          >
+                            <FaTrashAlt></FaTrashAlt>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </label>
+                ))}
               </div>
             ) : (
               <Loading></Loading>
+            )}
+            {detailsTaskData && (
+              <TaskDetailsModal
+                detailsTaskData={detailsTaskData}
+              ></TaskDetailsModal>
             )}
           </div>
         </div>
