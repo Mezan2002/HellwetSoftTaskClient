@@ -1,21 +1,23 @@
 import React, { useContext, useState } from "react";
-import { FaRegChartBar, FaSearch } from "react-icons/fa";
+import {
+  FaPencilAlt,
+  FaRegChartBar,
+  FaSearch,
+  FaTrashAlt,
+} from "react-icons/fa";
 import { MdNotificationsActive } from "react-icons/md";
 import { RiSettings4Fill } from "react-icons/ri";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
+import Swal from "sweetalert2";
 
 const Tasks = () => {
   const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const {
-    data: task = [],
-    refetch,
-    isLoading,
-  } = useQuery({
+  const { data: task = [], refetch } = useQuery({
     queryKey: [`tasks, ${user?.email}`],
     queryFn: async () => {
       const res = await fetch(
@@ -25,6 +27,31 @@ const Tasks = () => {
       return data;
     },
   });
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/task/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+          });
+      }
+    });
+  };
 
   return (
     <div className="mainBG min-h-screen">
@@ -138,8 +165,15 @@ const Tasks = () => {
                               </button>
                             </td>
                             <td className="">
-                              <button className="btn btn-sm mr-4">edit</button>
-                              <button className="btn btn-sm">delete</button>
+                              <button className="btn btn-sm mr-4">
+                                <FaPencilAlt></FaPencilAlt>
+                              </button>
+                              <button
+                                onClick={() => handleDelete(task._id)}
+                                className="btn btn-error text-white btn-sm"
+                              >
+                                <FaTrashAlt></FaTrashAlt>
+                              </button>
                             </td>
                           </tr>
                         ))}
