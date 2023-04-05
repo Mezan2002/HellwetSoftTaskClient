@@ -12,10 +12,13 @@ import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
 import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import Swal from "sweetalert2";
+import EditTaksModal from "../EditTaksModal/EditTaksModal";
 
 const Tasks = () => {
   const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [taskData, setTaskData] = useState([]);
 
   const { data: task = [], refetch } = useQuery({
     queryKey: [`tasks, ${user?.email}`],
@@ -51,6 +54,11 @@ const Tasks = () => {
           });
       }
     });
+  };
+
+  const handleEdit = (taskData) => {
+    setTaskData(taskData);
+    setEditModalOpen(true);
   };
 
   return (
@@ -134,6 +142,15 @@ const Tasks = () => {
                     ></AddTaskModal>
                   )}
                 </div>
+                <div>
+                  {editModalOpen && taskData !== [] && (
+                    <EditTaksModal
+                      editModalOpen={editModalOpen}
+                      setEditModalOpen={setEditModalOpen}
+                      taskData={taskData}
+                    ></EditTaksModal>
+                  )}
+                </div>
               </div>
             </div>
             {task.length !== 0 ? (
@@ -165,9 +182,13 @@ const Tasks = () => {
                               </button>
                             </td>
                             <td className="">
-                              <button className="btn btn-sm mr-4">
+                              <label
+                                htmlFor="editTaskModal"
+                                className="btn btn-sm mr-4"
+                                onClick={() => handleEdit(task)}
+                              >
                                 <FaPencilAlt></FaPencilAlt>
-                              </button>
+                              </label>
                               <button
                                 onClick={() => handleDelete(task._id)}
                                 className="btn btn-error text-white btn-sm"

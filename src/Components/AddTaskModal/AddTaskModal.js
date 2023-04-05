@@ -61,13 +61,12 @@ const Modal = ({ setModalOpen, refetch }) => {
               <label className="label">
                 <span className="label-text">Description of the task</span>
               </label>
-              <input
-                type="text"
+              <textarea
                 name="description"
                 required
                 placeholder="Description"
-                className="input input-bordered w-full"
-              />
+                className="h-40 textarea border border-gray-300"
+              ></textarea>
             </div>
             <div className="form-control w-full">
               <label className="label">
