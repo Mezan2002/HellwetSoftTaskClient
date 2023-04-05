@@ -8,6 +8,7 @@ const LogIn = () => {
   const [logInError, setLogInError] = useState("");
   const navigate = useNavigate();
   const handleLogIn = (event) => {
+    setLogInError("");
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;

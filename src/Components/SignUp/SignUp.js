@@ -9,6 +9,7 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const handleSignUp = (event) => {
+    setLogInError("");
     event.preventDefault();
     const form = event.target;
     const fullName = form.fullName.value;

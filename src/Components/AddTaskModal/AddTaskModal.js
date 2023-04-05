@@ -15,6 +15,7 @@ const Modal = ({ setModalOpen, refetch }) => {
       description,
       date,
       userEmail: user.email,
+      createdAt: new Date().toISOString(),
     };
     fetch("http://localhost:5000/addTask", {
       method: "POST",
