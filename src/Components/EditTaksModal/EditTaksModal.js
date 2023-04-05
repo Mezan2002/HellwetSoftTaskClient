@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
-const EditTaskModal = ({ editModalOpen, setEditModalOpen, taskData }) => {
+const EditTaskModal = ({
+  editModalOpen,
+  setEditModalOpen,
+  taskData,
+  refetch,
+}) => {
   const [currentTaskData, setCurrentTaskData] = useState(null);
 
   useEffect(() => {
     setCurrentTaskData(taskData);
   }, [taskData]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setCurrentTaskData({
+      ...currentTaskData,
+      [name]: value,
+    });
+  };
 
   const handleEditTask = (event) => {
     event.preventDefault();
@@ -18,21 +32,21 @@ const EditTaskModal = ({ editModalOpen, setEditModalOpen, taskData }) => {
       updatedDescription,
       updatedDate,
     };
-    fetch(``, {
+    fetch(`http://localhost:5000/updatedTask/${taskData._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(updatedTaskData),
-    });
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCurrentTaskData({
-      ...currentTaskData,
-      [name]: value,
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          Swal.fire("Task Updated Successfully!", "", "success");
+          setEditModalOpen(false);
+        }
+      });
   };
 
   return (

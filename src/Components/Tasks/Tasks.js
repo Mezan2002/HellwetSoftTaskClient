@@ -148,6 +148,7 @@ const Tasks = () => {
                       editModalOpen={editModalOpen}
                       setEditModalOpen={setEditModalOpen}
                       taskData={taskData}
+                      refetch={refetch}
                     ></EditTaksModal>
                   )}
                 </div>
@@ -162,8 +163,7 @@ const Tasks = () => {
                       <thead>
                         <tr>
                           <th></th>
-                          <th>Title</th>
-                          <th>Description</th>
+                          <th>Title and Description</th>
                           <th>Date</th>
                           <th>Status</th>
                           <th>Action</th>
@@ -173,8 +173,18 @@ const Tasks = () => {
                         {task.map((task, i) => (
                           <tr key={task._id}>
                             <th>{i + 1}</th>
-                            <td>{task.title}</td>
-                            <td>{task.description}</td>
+                            <td>
+                              <div className="flex items-center space-x-3">
+                                <div>
+                                  <div className="font-bold">{task.title}</div>
+                                  <div className="text-sm opacity-50">
+                                    {task.description.length > 20
+                                      ? `${task.description.slice(0, 30)}...`
+                                      : task.description}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
                             <td>{task.date}</td>
                             <td>
                               <button className="btn btn-ghost btn-xs">
