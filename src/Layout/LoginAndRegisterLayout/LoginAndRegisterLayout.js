@@ -4,9 +4,9 @@ import { Outlet } from "react-router-dom";
 const LoginAndRegisterLayout = () => {
   return (
     <div className="p-5 flex items-center justify-center min-h-screen mainBG">
-      <div className="grid grid-cols-2 gap-2 items-center">
+      <div className="grid-cols-2 xl:grid block gap-2 items-center">
         <div className="mr-10">
-          <div className="md:relative md:text-left text-center">
+          <div className="xl:relative xl:block hidden md:text-left text-center">
             <h1 className="lg:text-3xl md:text-2xl text-3xl text-primary font-bold capitalize">
               Join here and make your task noted
             </h1>

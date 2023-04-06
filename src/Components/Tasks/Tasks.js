@@ -4,6 +4,7 @@ import {
   FaRegChartBar,
   FaSearch,
   FaTrashAlt,
+  FaUser,
 } from "react-icons/fa";
 import { MdNotificationsActive } from "react-icons/md";
 import { RiSettings4Fill } from "react-icons/ri";
@@ -16,7 +17,7 @@ import EditTaksModal from "../EditTaksModal/EditTaksModal";
 import TaskDetailsModal from "../TaskDetailsModal/TaskDetailsModal";
 
 const Tasks = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [taskData, setTaskData] = useState([]);
@@ -70,12 +71,42 @@ const Tasks = () => {
   return (
     <div className="mainBG min-h-screen">
       <div>
-        <div className="grid grid-cols-9 p-8">
-          <div className="col-span-8 flex items-center justify-between">
-            <p className="font-semibold text-2xl">
+        <div className="px-9 xl:hidden md:block items-center justify-between">
+          <p className="font-semibold xl:text-2xl">
+            Hello {user?.displayName}👋 ,
+          </p>
+          <div className="dropdown">
+            <label tabIndex={0} className="mainBG w-full py-6 px-3">
+              <div className="flex items-center">
+                {user?.photoURL ? (
+                  <div className="avatar mr-2">
+                    <div className="w-12 rounded-full">
+                      <img src={user?.photoURL} alt="loggedInUserImage" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-400 p-2 mr-4">
+                    <FaUser className="text-3xl"></FaUser>
+                  </div>
+                )}
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <button onClick={logOut} className="btn">
+                Log Out{" "}
+              </button>
+            </ul>
+          </div>
+        </div>
+        <div className="xl:grid xl:grid-cols-9 hidden p-8">
+          <div className="xl:col-span-8 flex items-center justify-between">
+            <p className="font-semibold xl:text-2xl">
               Hello {user?.displayName}👋 ,
             </p>
-            <div className="form-control w-5/12">
+            <div className="form-control hidden xl:block w-5/12 xl:mr-5">
               <div className="input-group">
                 <input
                   type="text"
@@ -101,7 +132,7 @@ const Tasks = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-end">
+          <div className="xl:flex items-center justify-end hidden">
             <p>
               <FaRegChartBar className="text-2xl font-semibold text-gray-400"></FaRegChartBar>
             </p>
@@ -114,15 +145,15 @@ const Tasks = () => {
           </div>
         </div>
         <div className="px-8">
-          <div className="bg-base-100 shadow-xl h-[730px] card card-compact">
+          <div className="bg-base-100 shadow-xl 2xl:h-[730px] xl:h-[550px] card card-compact">
             <div className="p-4 flex items-center justify-between">
-              <div className="w-8/12">
+              <div className="2xl:w-8/12 xl:w-6/12 md:w-4/12">
                 <h2 className="card-title">All Tasks</h2>
                 <p className="text-green-500">
                   Incompleted Taks : {task.length}{" "}
                 </p>
               </div>
-              <div className="flex items-center justify-between w-4/12">
+              <div className="flex items-center justify-between 2xl:w-4/12 xl:w-6/12 md:w-8/12">
                 <div className="relative w-8/12">
                   <input
                     type="text"
@@ -162,7 +193,7 @@ const Tasks = () => {
             </div>
             {isLoading && <Loading></Loading>}
             {task.length > 0 && (
-              <div className="px-5">
+              <div className="px-5 overflow-auto">
                 <div className="grid grid-cols-12 gap-2 p-5 bg-slate-200 rounded-xl">
                   <div className="">
                     <h2 className="text-sm capitalize font-semibold">No</h2>
@@ -176,57 +207,59 @@ const Tasks = () => {
                     <h2 className="text-sm capitalize font-semibold">Action</h2>
                   </div>
                 </div>
-                {task.map((task, i) => (
-                  <label
-                    key={task._id}
-                    htmlFor="taskDetailsModal"
-                    onClick={() => setDetailsTaskData(task)}
-                    className=""
-                  >
-                    <div className="grid grid-cols-12 gap-2 p-5 border-b items-center align-middle">
-                      <div className="">
-                        <h2 className="text-sm capitalize font-semibold">
-                          {i + 1}
-                        </h2>
-                      </div>
-                      <div className="col-span-11 grid grid-cols-4">
+                <div className="">
+                  {task.map((task, i) => (
+                    <label
+                      key={task._id}
+                      htmlFor="taskDetailsModal"
+                      onClick={() => setDetailsTaskData(task)}
+                      className=""
+                    >
+                      <div className="grid grid-cols-12 gap-2 p-5 border-b items-center align-middle">
                         <div className="">
-                          <h2 className="text-base capitalize font-semibold">
-                            {task.title}
+                          <h2 className="text-sm capitalize font-semibold">
+                            {i + 1}
                           </h2>
-                          <p className="text-sm text-gray-400">
-                            {task.description.length > 20
-                              ? `${task.description.slice(0, 30)}...`
-                              : task.description}
-                          </p>
                         </div>
-                        <div>
-                          <h2 className="text-base mt-3">{task.date}</h2>
-                        </div>
-                        <div className="">
-                          <button className="btn btn-ghost btn-xs mt-3">
-                            new
-                          </button>
-                        </div>
-                        <div className="mt-2">
-                          <label
-                            htmlFor="editTaskModal"
-                            className="btn btn-sm mr-4"
-                            onClick={() => handleEdit(task)}
-                          >
-                            <FaPencilAlt></FaPencilAlt>
-                          </label>
-                          <button
-                            onClick={() => handleDelete(task._id)}
-                            className="btn btn-error text-white btn-sm"
-                          >
-                            <FaTrashAlt></FaTrashAlt>
-                          </button>
+                        <div className="col-span-11 grid grid-cols-4">
+                          <div className="">
+                            <h2 className="text-base capitalize font-semibold">
+                              {task.title}
+                            </h2>
+                            <p className="text-sm text-gray-400">
+                              {task.description.length > 20
+                                ? `${task.description.slice(0, 30)}...`
+                                : task.description}
+                            </p>
+                          </div>
+                          <div>
+                            <h2 className="text-base mt-3">{task.date}</h2>
+                          </div>
+                          <div className="">
+                            <button className="btn btn-ghost btn-xs mt-3">
+                              new
+                            </button>
+                          </div>
+                          <div className="mt-2">
+                            <label
+                              htmlFor="editTaskModal"
+                              className="btn btn-sm mr-4"
+                              onClick={() => handleEdit(task)}
+                            >
+                              <FaPencilAlt></FaPencilAlt>
+                            </label>
+                            <button
+                              onClick={() => handleDelete(task._id)}
+                              className="btn btn-error text-white btn-sm"
+                            >
+                              <FaTrashAlt></FaTrashAlt>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </label>
-                ))}
+                    </label>
+                  ))}
+                </div>
               </div>
             )}
             {user && task.length === 0 && (

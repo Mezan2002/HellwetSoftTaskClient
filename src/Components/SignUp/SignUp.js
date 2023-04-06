@@ -50,14 +50,16 @@ const SignUp = () => {
         <div className="card-body">
           <form onSubmit={handleSignUp} className="">
             <h2 className="card-title">
-              <p className="text-center mb-10 text-xl uppercase">Sign Up</p>
+              <p className="text-center 2xl:mb-10 xl:mb-5 text-xl uppercase">
+                Sign Up
+              </p>
             </h2>
             {logInError && (
               <div>
                 <p className="text-red-500 text-center">{logInError}</p>
               </div>
             )}
-            <div className="mb-5">
+            <div className="mb-2">
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Full Name</span>
@@ -71,7 +73,7 @@ const SignUp = () => {
                 />
               </div>
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Email Address</span>
@@ -85,7 +87,7 @@ const SignUp = () => {
                 />
               </div>
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Password</span>
@@ -99,7 +101,7 @@ const SignUp = () => {
                 />
               </div>
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Image URL</span>
@@ -113,7 +115,7 @@ const SignUp = () => {
                 />
               </div>
             </div>
-            <div className="card-actions">
+            <div className="mt-5">
               <button type="submit" className="btn btn-primary btn-block">
                 Sign Up
               </button>

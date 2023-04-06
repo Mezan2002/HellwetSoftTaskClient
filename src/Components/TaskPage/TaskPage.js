@@ -10,11 +10,11 @@ const TaskPage = () => {
     <div>
       <div>
         {user !== null ? (
-          <div className="grid grid-cols-6">
-            <div>
+          <div className="xl:grid 2xl:grid-cols-6 xl:grid-cols-5 block">
+            <div className="xl:col-span-1 hidden xl:block">
               <DashboardMenu></DashboardMenu>
             </div>
-            <div className="col-span-5">
+            <div className="2xl:col-span-5 xl:col-span-4">
               <Tasks></Tasks>
             </div>
           </div>

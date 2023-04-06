@@ -10,7 +10,7 @@ const DashboardMenu = () => {
     <div className="">
       <div className="min-h-screen relative">
         <div className="">
-          <p className="pt-4 pb-2 font-semibold text-4xl text-center px-2">
+          <p className="pt-4 pb-2 font-semibold 2xl:text-4xl text-2xl text-center px-2">
             Dashboard <span className="text-xs">Demo</span>
           </p>
         </div>
@@ -52,7 +52,7 @@ const DashboardMenu = () => {
               />
               <p className="">Important Task</p>
             </div>
-            <div className="flex items-center hover:bg-gray-200 2xl:p-3 2xl:m-1 lg:p-3 lg:m-1 rounded-2xl">
+            <div className="flex items-center 2xl:flex xl:hidden hover:bg-gray-200 2xl:p-3 2xl:m-1 lg:p-3 lg:m-1 rounded-2xl">
               <img
                 draggable={false}
                 src="https://i.ibb.co/6BywRwr/user-3.png"
@@ -61,7 +61,7 @@ const DashboardMenu = () => {
               />
               <p className="">Personal Task</p>
             </div>
-            <div className="flex items-center hover:bg-gray-200 2xl:p-3 2xl:m-1 lg:p-3 lg:m-1 rounded-2xl">
+            <div className="flex items-center 2xl:flex xl:hidden hover:bg-gray-200 2xl:p-3 2xl:m-1 lg:p-3 lg:m-1 rounded-2xl">
               <img
                 draggable={false}
                 src="https://i.ibb.co/SRt8KrS/community.png"
@@ -79,7 +79,10 @@ const DashboardMenu = () => {
               />
               <p className="">Proccessed Task</p>
             </div>
-            <div className="flex items-center hover:bg-gray-200 2xl:p-3 2xl:m-1 lg:p-3 lg:m-1 rounded-2xl">
+            <div
+              className="flex items-center 2xl:flex xl:hidden hover:bg-gray-200 2xl:p-3 2xl:m-1 lg:p-3 
+            lg:m-1 rounded-2xl"
+            >
               <img
                 draggable={false}
                 src="https://i.ibb.co/1TBPTLM/bookmark.png"
@@ -97,7 +100,7 @@ const DashboardMenu = () => {
               />
               <p className="">Folder</p>
             </div>
-            <div className="flex items-center hover:bg-gray-200 2xl:p-3 2xl:m-1 lg:p-3 lg:m-1 rounded-2xl">
+            <div className="flex 2xl:flex xl:hidden items-center hover:bg-gray-200 2xl:p-3 2xl:m-1 lg:p-3 lg:m-1 rounded-2xl">
               <img
                 draggable={false}
                 src="https://i.ibb.co/9bhWHcD/tag-1.png"
@@ -130,7 +133,7 @@ const DashboardMenu = () => {
               )}
               <div>
                 <div>
-                  <h2 className="mr-5 font-bold">
+                  <h2 className="mr-5 2xl:font-bold xl:text-xs 2xl:text-base xl:font-semibold">
                     {user?.displayName ? user.displayName : "User"}
                   </h2>
                   <p className="text-gray-400">user</p>
