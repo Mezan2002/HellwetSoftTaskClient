@@ -32,7 +32,7 @@ const EditTaskModal = ({
       updatedDescription,
       updatedDate,
     };
-    fetch(`http://localhost:5000/updatedTask/${taskData._id}`, {
+    fetch(`https://task-server-three.vercel.app/updatedTask/${taskData._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

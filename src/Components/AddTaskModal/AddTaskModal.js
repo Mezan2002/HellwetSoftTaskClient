@@ -17,7 +17,7 @@ const Modal = ({ setModalOpen, refetch }) => {
       userEmail: user.email,
       createdAt: new Date().toISOString(),
     };
-    fetch("http://localhost:5000/addTask", {
+    fetch("https://task-server-three.vercel.app/addTask", {
       method: "POST",
       headers: {
         "content-type": "application/json",

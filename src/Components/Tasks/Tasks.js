@@ -22,11 +22,15 @@ const Tasks = () => {
   const [taskData, setTaskData] = useState([]);
   const [detailsTaskData, setDetailsTaskData] = useState([]);
 
-  const { data: task = [], refetch } = useQuery({
+  const {
+    data: task = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: [`tasks, ${user?.email}`],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/tasks?userEmail=${user?.email}`
+        `https://task-server-three.vercel.app/tasks?userEmail=${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -44,7 +48,7 @@ const Tasks = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/task/${id}`, {
+        fetch(`https://task-server-three.vercel.app/task/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -156,7 +160,8 @@ const Tasks = () => {
                 </div>
               </div>
             </div>
-            {task.length !== 0 ? (
+            {isLoading && <Loading></Loading>}
+            {task.length > 0 && (
               <div className="px-5">
                 <div className="grid grid-cols-12 gap-2 p-5 bg-slate-200 rounded-xl">
                   <div className="">
@@ -223,8 +228,22 @@ const Tasks = () => {
                   </label>
                 ))}
               </div>
-            ) : (
-              <Loading></Loading>
+            )}
+            {user && task.length === 0 && (
+              <div className="flex items-center justify-center min-h-[80%]">
+                <div>
+                  <h2 className="uppercase text-2xl font-semibold mb-5">
+                    Please Log In to Note your tasks
+                  </h2>
+                  <label
+                    htmlFor="addTaskModal"
+                    onClick={() => setModalOpen(true)}
+                    className="btn btn-primary btn-block"
+                  >
+                    Add New Task
+                  </label>
+                </div>
+              </div>
             )}
             {detailsTaskData && (
               <TaskDetailsModal
