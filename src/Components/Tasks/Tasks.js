@@ -71,8 +71,8 @@ const Tasks = () => {
   return (
     <div className="mainBG min-h-screen">
       <div>
-        <div className="px-9 xl:hidden md:block items-center justify-between">
-          <p className="font-semibold xl:text-2xl">
+        <div className="px-9 xl:hidden sm:flex items-center justify-between">
+          <p className="font-semibold xl:text-2xl md:text-xl">
             Hello {user?.displayName}👋 ,
           </p>
           <div className="dropdown">
@@ -145,7 +145,7 @@ const Tasks = () => {
           </div>
         </div>
         <div className="px-8">
-          <div className="bg-base-100 shadow-xl 2xl:h-[730px] xl:h-[550px] card card-compact">
+          <div className="bg-base-100 shadow-xl 2xl:h-[730px] xl:h-[550px] md:h-[1000px] card card-compact">
             <div className="p-4 flex items-center justify-between">
               <div className="2xl:w-8/12 xl:w-6/12 md:w-4/12">
                 <h2 className="card-title">All Tasks</h2>
